@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/bash -l
 
-set -e
+# ==== ONLY EDIT WITHIN THIS BLOCK =====
+# No longer install development version, it's included in environment.yml
+#pip install -e git+https://github.com/icesat2py/icepyx.git#egg=icepyx --src /srv/icesat2py
 
 NIGHTLY_TAG="nightly"
 NIGHTLY_REPO="airbus/scikit-decide"
@@ -32,5 +34,7 @@ if [ -z "${skdecide_version}" ]; then
 else
   echo "Scikit-decide (${skdecide_version}) already installed."
 fi
+
+# ==== ONLY EDIT WITHIN THIS BLOCK =====
 
 exec "$@"

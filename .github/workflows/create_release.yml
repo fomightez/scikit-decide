@@ -1,9 +1,6 @@
 ame: 🔨 Create postBuild file and tag a release
 
 on:
-  workflow_dispatch:
-    branches:
-      - master   # Only build on master
   workflow_call:
     inputs:
       version:
