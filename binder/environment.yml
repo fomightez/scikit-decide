@@ -5,12 +5,12 @@ channels:
 dependencies:
   - python=3.8
   - pip
+  - cpuonly
+  - torch==1.10.1
   - pip:
     - matplotlib
     - ipywidgets
     - ipympl
-    - cpuonly
-    - torch==1.10.1
     - nbgitpuller
     - pyvirtualdisplay
     - PyOpenGL-accelerate
