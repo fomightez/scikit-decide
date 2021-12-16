@@ -595,7 +595,7 @@ jobs:
             "version/*"
 
   upload-nightly:
-    if: (github.ref == 'refs/heads/master') && (github.repository == 'airbus/scikit-decide') && (github.event_name == 'schedule')
+    if: needs.setup.outputs.build_nightly == 'true'
     needs: [test-ubuntu, test-macos, test-windows]
     runs-on: ubuntu-latest
 
