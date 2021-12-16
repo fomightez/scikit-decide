@@ -51,7 +51,6 @@ jobs:
               if any(python_filter.values()):
                   python_version = [v for v in python_version if python_filter[v]]
               os_filter = {
-                  'macos-10.15'  : to_bool("${{ contains(github.event.head_commit.message, '[ci: macos-10.15]') }}"),
                   'macos-11'     : to_bool("${{ contains(github.event.head_commit.message, '[ci: macos-11]') }}"),
                   'ubuntu-18.04' : to_bool("${{ contains(github.event.head_commit.message, '[ci: ubuntu-18.04]') }}"),
                   'ubuntu-20.04' : to_bool("${{ contains(github.event.head_commit.message, '[ci: ubuntu-20.04]') }}"),
