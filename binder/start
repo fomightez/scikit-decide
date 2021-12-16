@@ -32,3 +32,5 @@ if [ -z "${skdecide_version}" ]; then
 else
   echo "Scikit-decide (${skdecide_version}) already installed."
 fi
+
+exec "$@"
