@@ -20,8 +20,15 @@ export default {
   },
   created: async function () {
     try {
+      // https://airbus.github.io/scikit-decide/
+      // http://localhost:8000/
+      console.log(window.location.hostname, window.location.pathname);
+
+      const orgaName = window.location.hostname.split(".")[0];
+      const repoName = window.location.pathname.split("/")[1];
+
       let res = await Axios.get(
-        "https://api.github.com/repos/airbus/scikit-decide/git/trees/gh-pages"
+        "https://api.github.com/repos/{orgaName}/{repoName}/git/trees/gh-pages"
       );
       const versionNode = res.data.tree.find((e) => {
         return e.path.toLowerCase() === "version";
@@ -41,7 +48,7 @@ export default {
         }
         return e1.text === e2.text ? 0 : e2.text < e1.text ? -1 : 1;
       });
-      this.options.unshift({ value: "master", text: "dev" });
+      this.options.unshift({ value: "master", text: "master" });
       const path = window.location.pathname.toLowerCase();
       if (path.startsWith("/scikit-decide/version/")) {
         const start = 23; // len("/version/scikit-decide/")
