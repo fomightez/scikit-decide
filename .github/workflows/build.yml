@@ -30,6 +30,7 @@ jobs:
       do_ubuntu: ${{ steps.generate-matrix.outputs.do_ubuntu}}
       do_windows: ${{ steps.generate-matrix.outputs.do_windows}}
       build_doc: ${{ steps.generate-matrix.outputs.build_doc}}
+      build_nightly: ${{ steps.generate-matrix.outputs.build_nightly}}
     steps:
       - uses: actions/setup-python@v2
       - name: Generate Matrix
@@ -40,6 +41,7 @@ jobs:
           build = [ "macos-10.15", "ubuntu-latest", "windows-2016" ]
           test = [ "macos-10.15", "macos-11", "ubuntu-18.04", "ubuntu-20.04", "windows-2016", "windows-2019", "windows-2022"]
           build_doc = "true"
+          build_nightly = "false"
 
           if "${{ github.event_name }}" != "schedule":
               to_bool = lambda s: True if s == "true" else False
@@ -75,11 +77,19 @@ jobs:
               build = [ v for v in build if v.split('-')[0] in test_os ]
               if "${{ contains(github.event.head_commit.message, '[ci: skip-doc]') }}" == "true" or "ubuntu-latest" not in build:
                   build_doc = "false"
+
+          if "${{ github.event_name }}" == "schedule" and "${{ github.ref }}" == "refs/heads/master" and "${{ github.repository }}" == "airbus/scikit-decide":
+              build_nightly = "true"
+
+          if "${{ contains(github.event.head_commit.message, '[ci: build-nightly]') }}" == "true":
+              build_nightly = "true"
+
           oses = ["macos", "ubuntu", "windows"]
           build_dict = {os : [k for k in build if k.startswith(os)] for os in oses}
           print(f"::set-output name=build::{build_dict}")
           print(f"::set-output name=test::{dict({os : [k for k in test if k.startswith(os)] for os in oses})}")
           print(f"::set-output name=build_doc::{build_doc}")
+          print(f"::set-output name=build_nightly::{build_nightly}")
           for os in oses:
               print(f"::set-output name=do_{os}::{'true' if len(build_dict[os]) > 0 else 'false'}")
           print(f"::set-output name=python_version::{python_version}")
