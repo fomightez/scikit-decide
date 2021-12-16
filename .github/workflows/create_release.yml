@@ -1,0 +1,47 @@
+ame: 🔨 Create postBuild file and tag a release
+
+on:
+  workflow_dispatch:
+    branches:
+      - master   # Only build on master
+  workflow_call:
+    inputs:
+      version:
+        description: 'the version (vX.Y.Z) to create'
+        default: 'v0.9.0'
+        required: true
+        type: string
+
+jobs:
+
+  create_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Create postBuild file
+        run: |
+          cat > postBuild <<EOF
+          #!/bin/bash
+          set -e
+          set -x
+          pip install --upgrade pip
+          pip install scikit-decide==${{ github.event.inputs.version[1:] }}
+          EOF
+
+          git config user.name "Actions"
+          git config user.email "actions@github.com"
+          git commit binder/postBuild -m "Specify scikit-decide used by binder for release ${{ github.event.inputs.version }}"
+          # get sha1 to be used by binder for the environment
+          #BINDER_RELEASE_ENV_SHA1=$(git rev-parse --verify HEAD)
+          #echo "BINDER_RELEASE_ENV_SHA1=${BINDER_RELEASE_ENV_SHA1}" >> $GITHUB_ENV
+          # revert for the master binder env
+          #git revert HEAD -n
+          #git commit -m "Revert to binder environment for master branch"
+          # switch back to original branch
+          # Create tag
+          # git tag -a "${{ github.event.inputs.version }}" -m "${{ github.event.inputs.version }}"
+          # git push origin "${{ github.event.inputs.version }}"
+          cat binder/postBuild
