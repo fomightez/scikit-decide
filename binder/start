@@ -1,6 +1,11 @@
 #!/bin/bash -l
 
 # ==== ONLY EDIT WITHIN THIS BLOCK =====
+NIGHTLY_TAG="nightly"
+NIGHTLY_REPO="airbus/scikit-decide"
+
+
+
 # ==== ONLY EDIT WITHIN THIS BLOCK =====
 
 exec "$@"
