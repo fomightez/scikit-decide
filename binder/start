@@ -4,6 +4,7 @@
 NIGHTLY_TAG="nightly"
 NIGHTLY_REPO="airbus/scikit-decide"
 
+skdecide_version=$(pip list | grep "scikit-decide")
 
 
 # ==== ONLY EDIT WITHIN THIS BLOCK =====
