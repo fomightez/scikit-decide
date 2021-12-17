@@ -1,5 +1,6 @@
 jq
 ffmpeg
 freeglut3-dev
+unzip
 xvfb
 x11-utils
