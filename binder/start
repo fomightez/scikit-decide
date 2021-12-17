@@ -25,11 +25,8 @@ if [ -z "${skdecide_version}" ]; then
     # download and unzip
     wget --output-document=nightly.zip ${asset_url}
     unzip nightly.zip
-    # get the appropriate wheel from python version
-    wheel_pythonversion_tag=$(python -c 'import sys; print(f"cp{sys.version_info.major}{sys.version_info.minor}")')
-    wheel_path=$(ls dist/scikit_decide*${wheel_pythonversion_tag}*manylinux*.whl)
     # install scikit-decide with all extras
-    pip install ${wheel_path}[all]
+    pip install --pre --find-links ./dist/ "scikit-decide[all]"
   fi
 else
   echo "Scikit-decide (${skdecide_version}) already installed."
