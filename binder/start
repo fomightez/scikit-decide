@@ -21,7 +21,7 @@ if [ -z "${skdecide_version}" ]; then
   else
     echo "Downloading and installing nightly"
     # download and unzip
-    curl --location --output nightly.zip ${asset_url}
+    #curl --location --output nightly.zip ${asset_url}
     #unzip nightly.zip
     # install scikit-decide with all extras
     #pip install --pre --find-links ./dist/ "scikit-decide[all]"
