@@ -10,17 +10,6 @@ if [ -z "${skdecide_version}" ]; then
   echo "Scikit-decide not found: installing from last nightly build."
   # get last nightly build asset url
   asset_url=""
-  # check that it exists (either "null" is no asset in nightly or "" if no tag nightly at all)
-  if  [ $asset_url == "null" ] || [ $asset_url == "" ]; then
-    echo "No nightly build available. Falling back to last version in pypi."
-    #pip install sickit-decide[all]
-  else
-    # download and unzip
-    #curl ${asset_url} --output nightly.zip
-    #unzip nightly.zip
-    # install scikit-decide with all extras
-    #pip install --pre --find-links ./dist/ "scikit-decide[all]"
-  fi
 else
   echo "Scikit-decide (${skdecide_version}) already installed."
 fi
